@@ -34,6 +34,9 @@ app.get('/', (req, res) => {
 const usersRoutes = require('./routes/users');
 app.use('/users', usersRoutes);
 
+// add all the route handlers in emailRoutes to the app under the path /emails
+const emailRoutes = require('./routes/emails');
+app.use('/emails', emailRoutes);
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {

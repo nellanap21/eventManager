@@ -14,8 +14,9 @@ app.use(express.static(__dirname + '/public')); // set location of static files
 
 // Set up local variables for the application
 // Per requirements, application is designed for one individual or organisation
-app.locals.siteName = 'Default Name';
-app.locals.sitedDescription = 'Default Description';
+app.locals.siteName = 'Fractals of Sound';
+app.locals.siteDescription = `A collective of musicians creating sound 
+bath experiences rooted in world music.`;
 
 // Set up SQLite
 // Items in the global namespace are accessible throught out the node application

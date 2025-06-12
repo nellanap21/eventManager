@@ -12,6 +12,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs'); // set the app to use ejs for rendering
 app.use(express.static(__dirname + '/public')); // set location of static files
 
+// Set up local variables for the application
+// Per requirements, application is designed for one individual or organisation
+app.locals.siteName = 'Default Name';
+app.locals.sitedDescription = 'Default Description';
+
 // Set up SQLite
 // Items in the global namespace are accessible throught out the node application
 const sqlite3 = require('sqlite3').verbose();
@@ -25,10 +30,16 @@ global.db = new sqlite3.Database('./database.db',function(err){
     }
 });
 
-// Handle requests to the home page 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-});
+// Add all the route handlers in mainRoutes to the app under the path /
+const mainRoutes = require("./routes/main");
+app.use('/', mainRoutes);
+
+// Add all the route handlers in organizerRoutes to the app under the path /organizer
+const organizerRoutes = require("./routes/organizer");
+app.use('/organizer', organizerRoutes);
+
+const attendeeRoutes = require("./routes/attendee");
+app.use('/attendee', attendeeRoutes);
 
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require('./routes/users');

@@ -25,8 +25,32 @@ router.post("/site-settings", (req, res) => {
     res.redirect('/organizer');
 });
 
-router.get("/edit-event", (req, res) => {
-    res.render("edit-event.ejs");
+
+router.get("/add-event", (req, res) => {
+    let sqlquery = "INSERT INTO events (event_state) VALUES (0)";
+
+    global.db.run(sqlquery, function (err) {
+        if (err) {
+            next(err);
+        } else {
+            res.redirect(`/organizer/edit-event/${this.lastID}`);
+        }
+    })
+});
+
+router.get("/edit-event/:id", (req, res) => {
+    const recordId = req.params.id;
+    let sqlquery = "SELECT * FROM events WHERE event_id = ?";
+    global.db.get(sqlquery, [recordId], (err, result) => {
+        if (err) {
+            next(err);
+        } else if (result == 0) {
+            res.send("No event found");
+        } else {
+            res.json({ data: result });
+            // res.render("edit-event.ejs", {data: result});
+        }
+    })
 });
 
 module.exports = router;

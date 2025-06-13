@@ -7,13 +7,11 @@
         <h1>Organizer Home Page</h1>
         <a href="/organizer/site-settings">Site Settings</a>
         <h2>Site Information</h2>
-        <p>Event Manager Name: </p>
-        <p><%= siteName %></p>
-        <p>Event Manager Description: </p>
-        <p><%= siteDescription %></p>
-
+        <p>Event Manager Name: <%= siteName %></p>
+        <p>Event Manager Description: <%= siteDescription %></p>
+        <p><%= publishedEvents %> </p>
         <form action="/organizer/add-event" method="get">
-            <button type="submit">Add New Event</button>
+            <button type="submit">Create New Event</button>
         </form>
 
         <script src="/organizer.js"></script>

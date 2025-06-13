@@ -4,11 +4,18 @@ const router = express.Router();
 
 // handle the organizer route
 router.get("/", (req, res) => {
+
+    let sqlquery = "SELECT * FROM events WHERE state = 1";
+
+
+
     const data = {
         siteName: req.app.locals.siteName,
-        siteDescription: req.app.locals.siteDescription
+        siteDescription: req.app.locals.siteDescription,
+        publishedEvents: "test"
     }
-    res.render("organizer.ejs", data);
+
+    res.render("organizer.ejs", data );
 });
 
 router.get("/site-settings", (req, res) => {
@@ -47,8 +54,8 @@ router.get("/edit-event/:id", (req, res) => {
         } else if (result == 0) {
             res.send("No event found");
         } else {
-            res.json({ data: result });
-            // res.render("edit-event.ejs", {data: result});
+            // res.json({ data: result });
+            res.render("edit-event.ejs", {data: result});
         }
     })
 });

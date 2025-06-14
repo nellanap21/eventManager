@@ -90,4 +90,22 @@ router.get("/edit-event/:id", (req, res) => {
     })
 });
 
+router.post("/edit-event/:id", (req, res) => {
+    const recordId = req.params.id;
+    let sqlquery = "UPDATE events SET event_title = ?, event_descrip = ?, event_date = ?, ticket_max = ?, ticket_price = ?, d_ticket_max = ?, d_ticket_price = ? WHERE event_id = ? RETURNING *";
+    // let sqlquery = "UPDATE events SET event_title, event_descrip, event_date, ticket_max, ticket_price, d_ticket_max, d_ticket_price WHERE event_id = ?";
+    let updatedRecord = [req.body.event_title, req.body.event_descrip, req.body.event_date, req.body.ticket_max, req.body.ticket_price, req.body.d_ticket_max, req.body.d_ticket_price, recordId];
+
+    global.db.get(sqlquery, updatedRecord, 
+        function (err, result) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("edit-event.ejs", {data: result});
+                // res.redirect(`/organizer/edit-event/${this.lastID}`);
+            }
+        }
+     )
+});
+
 module.exports = router;

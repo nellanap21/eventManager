@@ -9,10 +9,37 @@
         <h2>Site Information</h2>
         <p>Event Manager Name: <%= siteName %></p>
         <p>Event Manager Description: <%= siteDescription %></p>
-        <p><%= publishedEvents %> </p>
         <form action="/organizer/add-event" method="get">
             <button type="submit">Create New Event</button>
         </form>
+        <table>
+            <thead>
+                <th>Title</th>
+                <th>Event Date</th>
+                <th>Created</th>
+                <th>Published</th>
+                <th>Tickets</th>
+                <th>Discount Tickets</th>
+                <th>Manage</th>
+            </thead>
+            <tbody>
+                <% publishedEvents.forEach(function(row) { %>
+                <tr>
+                    <td><a href="/organizer/edit-event/<%= row.event_id %>"><%= row.event_title %></a></td>
+                    <td><%= row.event_date %></td>
+                    <td><%= row.create_date %></td>
+                    <td><%= row.pub_date %></td>
+                    <td><%= row.ticket_max %></td>
+                    <td><%= row.d_ticket_max %></td>
+                    <td>
+                        <form action="/organizer/delete-event/<%= row.event_id %>" method="get">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
 
         <script src="/organizer.js"></script>
     </body>

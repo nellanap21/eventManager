@@ -5,17 +5,33 @@ const router = express.Router();
 // handle the organizer route
 router.get("/", (req, res) => {
 
-    let sqlquery = "SELECT * FROM events WHERE state = 1";
-
-
-
-    const data = {
+    let data = {
         siteName: req.app.locals.siteName,
-        siteDescription: req.app.locals.siteDescription,
-        publishedEvents: "test"
-    }
+        siteDescription: req.app.locals.siteDescription
+    };
 
-    res.render("organizer.ejs", data );
+    let sqlquery = "SELECT * FROM events";
+
+    global.db.all(sqlquery, 
+        function (err, rows) {
+            if (err) {
+                console.log(err);
+            } else {
+                let publishedEvents = [];
+                let draftEvents = [];
+                for (let i = 0; i < rows.length; i++) {
+                    if (rows[i].event_state === 0) {
+                        draftEvents.push(rows[i]);
+                    } else {
+                        publishedEvents.push(rows[i]);
+                    }
+                }
+                data.draftEvents = draftEvents; 
+                data.publishedEvents = publishedEvents;
+                res.render("organizer.ejs", data);
+            }
+        }
+    );
 });
 
 router.get("/site-settings", (req, res) => {
@@ -42,8 +58,22 @@ router.get("/add-event", (req, res) => {
         } else {
             res.redirect(`/organizer/edit-event/${this.lastID}`);
         }
-    })
+    });
 });
+
+router.get("/delete-event/:id", (req, res) => {
+    const recordId = req.params.id;
+    let sqlquery = "DELETE FROM events WHERE event_id = ?";
+    global.db.run(sqlquery, [recordId], 
+        function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect('/organizer');
+            }
+        }
+    );
+})
 
 router.get("/edit-event/:id", (req, res) => {
     const recordId = req.params.id;

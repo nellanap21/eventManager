@@ -56,13 +56,13 @@ CREATE TABLE IF NOT EXISTS bookings (
 
 -- Set up 2 events
 INSERT INTO events ('event_title', 'event_descrip', 'event_date', 'create_date', 'event_state', 'pub_date', 'ticket_max', 'ticket_price', 'ticket_sold', 'd_ticket_max', 'd_ticket_price', 'd_ticket_sold', 'mod_date')
-VALUES ('Chapel Sound Bath', 'Sound Bath in a Beautiful Berkeley Chapel', '2025-06-30 14:30:00', '2025-06-01 14:30:00', 1, '2025-06-01 14:30:00', 40, 20.99, 10, 20, 15.99, 6, '2025-06-02 14:30:00');
+VALUES ('Chapel Sound Bath', 'Sound Bath in a Beautiful Berkeley Chapel', '2025-06-30T15:58', '2025-06-15T22:58:18.804Z', 1, '2025-06-16T22:58:48.169Z', 40, 20.99, 10, 20, 15.99, 6, '2025-06-02 14:30:00');
 
 INSERT INTO events ('event_title', 'event_descrip', 'event_date', 'create_date', 'event_state', 'pub_date', 'ticket_max', 'ticket_price', 'ticket_sold', 'd_ticket_max', 'd_ticket_price', 'd_ticket_sold', 'mod_date')
-VALUES ('Crystal Bowl Sound Bath', 'Attuning Back to Self: A Somatic Breathwork and Sound Bath Journey', '2025-07-30 14:30:00', '2025-06-01 14:30:00', 0, '2025-06-12 14:30:00', 20, 15.99, 0, 10, 12.99, 0, '2025-06-14 14:30:00');
+VALUES ('Crystal Bowl Sound Bath', 'Attuning Back to Self: A Somatic Breathwork and Sound Bath Journey', '2025-08-30T15:58', '2025-06-17T22:58:18.804Z', 0, '2025-06-18T22:58:18.804Z', 20, 15.99, 0, 10, 12.99, 0, '2025-06-14 14:30:00');
 
 INSERT INTO events ('event_title', 'event_descrip', 'event_date', 'create_date', 'event_state', 'pub_date', 'ticket_max', 'ticket_price', 'ticket_sold', 'd_ticket_max', 'd_ticket_price', 'd_ticket_sold', 'mod_date')
-VALUES ('Summer Sunset Sound Bath', 'Led by Blue Muse Sound Healing in collaboration with The Celestial Voice', '2025-07-30 14:30:00', '2025-06-01 14:30:00', 1, '2025-06-12 14:30:00', 25, 30.99, 0, 20, 20.99, 0, '2025-06-14 14:30:00');
+VALUES ('Summer Sunset Sound Bath', 'Led by Blue Muse Sound Healing in collaboration with The Celestial Voice', '2025-07-30T15:58', '2025-06-19T22:58:18.804Z', 1, '2025-06-20T22:58:18.804Z', 25, 30.99, 0, 20, 20.99, 0, '2025-06-14 14:30:00');
 
 
 -- Set up 3 attendees

@@ -4,6 +4,24 @@
         <title>This is the attendee home page</title>
     </head>
     <body>
-        <h1> Attendee Home Page</h1>
+        <h1>Attendee Home Page</h1>
+        <h2>Site Information</h2>
+        <p>Event Manager Name: <%= siteName %></p>
+        <p>Event Manager Description: <%= siteDescription %></p>
+        <h2>Published Events</h2>
+        <table>
+            <thead>
+                <th>Title</th>
+                <th>Event Date</th>
+            </thead>
+            <tbody>
+                <% publishedEvents.forEach(function(row) { %>
+                <tr>
+                    <td><a href="/attendee/book-event/<%= row.event_id %>"><%= row.event_title %></a></td>
+                    <td><%= row.event_date %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
     </body>
 </html>

@@ -6,5 +6,19 @@
     <body>
         <h1>Attendee Event Page</h1>
         <a href="/attendee">Back to Home</a>
+        <h2>Event Information</h2>
+        <p>Title: <%= data.event_title %></p>
+        <p>Description: <%= data.event_descrip %></p>
+        <p>Date: <%= data.event_date %></p>
+        <p>General Admission Tickets Available: <%= data.ticket_max %> </p>
+        <p>General Admission Ticket Price: <%= data.ticket_price %></p>
+        <p>Discount Tickets Available: <%= data.d_ticket_max %></p>
+        <p>Discount Ticket Price: <%= data.d_ticket_price %></p>
+        <h2>Book Tickets</h2>
+        <form method="POST" action="/organizer/book-event/<%= data.event_id %>">
+            Attendee Name: <input id="attendee_name" type="text" name="attendee_name" />
+            Attendee Email: <input id="attendee_email" type="text" name="attendee_email" />
+            <input type="submit" value="Submit">
+        </form>
     </body>
 </html>

@@ -112,7 +112,6 @@ router.get("/edit-event/:id", (req, res) => {
         } else if (result == 0) {
             res.send("No event found");
         } else {
-            // res.json({ data: result });
             res.render("edit-event.ejs", {data: result});
         }
     })

@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS attendees (
 
 CREATE TABLE IF NOT EXISTS bookings (
     booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticket_type TEXT,
     ticket_quantity INT,
-    d_ticket_quantity INT,
     event_id INT, --the event the booking belongs to
     attendee_id INT, --the attendee the booking belongs to
     FOREIGN KEY (event_id) REFERENCES events(event_id),
@@ -71,12 +71,12 @@ INSERT INTO attendees ('attendee_name', 'attendee_email') VALUES ('Devin Towns',
 INSERT INTO attendees ('attendee_name', 'attendee_email') VALUES ('Kevin Gonzales', 'kevin@gmail.com');
 
 -- Set up 3 bookings
-INSERT INTO bookings ('ticket_quantity', 'd_ticket_quantity', 'event_id', 'attendee_id')
-VALUES (1, 2, (SELECT event_id FROM events WHERE event_id = 1), (SELECT attendee_id FROM attendees WHERE attendee_email = 'allen@gmail.com'));
-INSERT INTO bookings ('ticket_quantity', 'd_ticket_quantity', 'event_id', 'attendee_id')
-VALUES (2, 0, (SELECT event_id FROM events WHERE event_id = 2), (SELECT attendee_id FROM attendees WHERE attendee_email = 'devin@gmail.com'));
-INSERT INTO bookings ('ticket_quantity', 'd_ticket_quantity', 'event_id', 'attendee_id')
-VALUES (1, 2, (SELECT event_id FROM events WHERE event_id = 1), (SELECT attendee_id FROM attendees WHERE attendee_email = 'kevin@gmail.com'));
+INSERT INTO bookings ('ticket_type', 'ticket_quantity', 'event_id', 'attendee_id')
+VALUES ('general', 2, (SELECT event_id FROM events WHERE event_id = 1), (SELECT attendee_id FROM attendees WHERE attendee_email = 'allen@gmail.com'));
+INSERT INTO bookings ('ticket_type', 'ticket_quantity', 'event_id', 'attendee_id')
+VALUES ('general', 0, (SELECT event_id FROM events WHERE event_id = 2), (SELECT attendee_id FROM attendees WHERE attendee_email = 'devin@gmail.com'));
+INSERT INTO bookings ('ticket_type', 'ticket_quantity', 'event_id', 'attendee_id')
+VALUES ('discount', 2, (SELECT event_id FROM events WHERE event_id = 1), (SELECT attendee_id FROM attendees WHERE attendee_email = 'kevin@gmail.com'));
 
 -- Set up three users
 INSERT INTO users ('user_name') VALUES ('Simon Star');

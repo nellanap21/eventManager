@@ -6,8 +6,8 @@
     <body>
         <h1>Organizer Edit Event Page</h1>
         <a href="/organizer"><button>Back to Home</button></a>
-        <p>Event Creation Date:<%= data.create_date %></p>
-        <p>Last Modified Date: <%= data.mod_date %></p>
+        <p>Event Created:<%= data.create_date %></p>
+        <p>Last Modified: <%= data.mod_date %></p>
         <form method="POST" action="/organizer/edit-event/<%= data.event_id %>">
             Event Title: <input id="event_title" type="text" name="event_title" value="<%= data.event_title %>" />
             Event Description: <input id="event_descrip" type="text" name="event_descrip" value="<%= data.event_descrip %>" />

@@ -85,8 +85,12 @@ router.get("/delete-event/:id", (req, res) => {
 
 router.get("/publish-event/:id", (req, res) => {
     const recordId = req.params.id;
-    let sqlquery = "UPDATE events SET event_state = 1 WHERE event_id = ?"
-    let updatedRecord = [recordId];
+
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString();
+
+    let sqlquery = "UPDATE events SET event_state = 1, pub_date = ? WHERE event_id = ?"
+    let updatedRecord = [currentDateString, recordId];
 
     global.db.run(sqlquery, updatedRecord, 
         function (err) {

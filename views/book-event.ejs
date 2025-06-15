@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>Attendee Event Page</h1>
-        <a href="/attendee">Back to Home</a>
+        <a href="/attendee"><button>Back to Home</button></a>
         <h2>Event Information</h2>
         <p>Title: <%= data.event_title %></p>
         <p>Description: <%= data.event_descrip %></p>
@@ -15,10 +15,22 @@
         <p>Discount Tickets Available: <%= data.d_ticket_max %></p>
         <p>Discount Ticket Price: <%= data.d_ticket_price %></p>
         <h2>Book Tickets</h2>
-        <form method="POST" action="/organizer/book-event/<%= data.event_id %>">
+        <form method="POST" action="/attendee/book-event/<%= data.event_id %>/<%= data.ticket_max %>/<%= data.d_ticket_max %>">
             Attendee Name: <input id="attendee_name" type="text" name="attendee_name" />
             Attendee Email: <input id="attendee_email" type="text" name="attendee_email" />
-            <input type="submit" value="Submit">
+            <fieldset>
+                <legend>Select ticket type:</legend>
+                <div>
+                    <input type="radio" id="ticket_type" name="ticket_type" value="general" checked />
+                    <label for="general">General</label>
+                </div>
+                <div>
+                    <input type="radio" id="ticket_type" name="ticket_type" value="discount" />
+                    <label for="discount">Discount</label>
+                </div>
+            </fieldset>
+            Number of Tickets: <input type="number" id="ticket_quantity" name="ticket_quantity" />
+            <input type="submit" value="Book" />
         </form>
     </body>
 </html>

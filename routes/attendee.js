@@ -38,4 +38,58 @@ router.get("/book-event/:id", (req, res) => {
     });
 });
 
+// sql query to check sold tickets
+// SELECT SUM(ticket_quantity) FROM bookings WHERE event_id = 1 AND ticket_type = 'general';
+
+router.post("/book-event/:id/:ticketMax/:discountMax", (req, res) => {
+    const eventId = req.params.id;
+    const ticketMax = req.params.ticketMax;
+    const discountMax = req.params.discountMax;
+
+    let sqlqueryCheck = "SELECT * FROM bookings WHERE event_id = ? AND ticket_type = ?";
+    let bookingCheckData = [eventId, req.body.ticket_type];
+    global.db.all(sqlqueryCheck, bookingCheckData,
+        function (err, rows) {
+            ticketsSold = 0;
+            for (let i = 0; i < rows.length; i++) {
+                ticketsSold += rows[i].ticket_quantity;
+            }
+
+            if (req.body.ticket_type == 'general' && (ticketsSold + req.body.ticket_quantity) > ticketMax) {
+                res.send(`There are only ${ticketMax - ticketsSold} tickets available.`)
+                // change send to alert and redirect
+            }
+            if (req.body.ticket_type == 'discount' && (ticketsSold + req.body.ticket_quantity > discountMax)) {
+                res.send(`There are only ${discountMax - ticketsSold} tickets available.`);
+                // change send to alert and redirect
+            }  
+
+            let sqlqueryAttendee = "INSERT INTO attendees ('attendee_name', 'attendee_email') VALUES (?, ?)";
+            let newAttendee = [req.body.attendee_name, req.body.attendee_email];
+            global.db.run(sqlqueryAttendee, newAttendee, 
+                function (err) {
+                    if (err) {
+                        next(err);
+                    } else {
+                        const attendeeId = this.lastID;
+                        const sqlqueryBooking = "INSERT INTO bookings ('ticket_type', 'ticket_quantity', 'event_id', 'attendee_id') VALUES (?, ?, ?, ?)";
+                        let newBooking = [req.body.ticket_type, req.body.ticket_quantity, eventId, attendeeId];
+                        global.db.run(sqlqueryBooking, newBooking, 
+                            function(err) {
+                                if (err) {
+                                    next(err);
+                                } else {
+                                    res.redirect("/attendee");
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+        }
+        
+    )
+
+});
+
 module.exports = router;

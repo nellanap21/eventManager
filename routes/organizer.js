@@ -2,6 +2,9 @@
 const express = require("express");
 const router = express.Router();
 
+
+const { format, parseISO } = require("date-fns"); // node cannot mix import and require in same file
+
 // handle the organizer route
 router.get("/", (req, res) => {
 
@@ -50,9 +53,14 @@ router.post("/site-settings", (req, res) => {
 
 
 router.get("/add-event", (req, res) => {
-    let sqlquery = "INSERT INTO events (event_state) VALUES (0)";
 
-    global.db.run(sqlquery, function (err) {
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString();
+
+    let sqlquery = "INSERT INTO events (create_date, event_state, mod_date) VALUES (?, ?, ?)";
+    let newRecord = [currentDateString, 0, currentDateString];
+
+    global.db.run(sqlquery, newRecord, function (err) {
         if (err) {
             next(err);
         } else {
@@ -73,7 +81,23 @@ router.get("/delete-event/:id", (req, res) => {
             }
         }
     );
-})
+});
+
+router.get("/publish-event/:id", (req, res) => {
+    const recordId = req.params.id;
+    let sqlquery = "UPDATE events SET event_state = 1 WHERE event_id = ?"
+    let updatedRecord = [recordId];
+
+    global.db.run(sqlquery, updatedRecord, 
+        function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect('/organizer');
+            }
+        }
+    );
+});
 
 router.get("/edit-event/:id", (req, res) => {
     const recordId = req.params.id;
@@ -92,9 +116,10 @@ router.get("/edit-event/:id", (req, res) => {
 
 router.post("/edit-event/:id", (req, res) => {
     const recordId = req.params.id;
-    let sqlquery = "UPDATE events SET event_title = ?, event_descrip = ?, event_date = ?, ticket_max = ?, ticket_price = ?, d_ticket_max = ?, d_ticket_price = ? WHERE event_id = ? RETURNING *";
-    // let sqlquery = "UPDATE events SET event_title, event_descrip, event_date, ticket_max, ticket_price, d_ticket_max, d_ticket_price WHERE event_id = ?";
-    let updatedRecord = [req.body.event_title, req.body.event_descrip, req.body.event_date, req.body.ticket_max, req.body.ticket_price, req.body.d_ticket_max, req.body.d_ticket_price, recordId];
+    const currentDate = new Date();
+
+    let sqlquery = "UPDATE events SET event_title = ?, event_descrip = ?, event_date = ?, ticket_max = ?, ticket_price = ?, d_ticket_max = ?, d_ticket_price = ?, mod_date = ? WHERE event_id = ? RETURNING *";
+    let updatedRecord = [req.body.event_title, req.body.event_descrip, req.body.event_date, req.body.ticket_max, req.body.ticket_price, req.body.d_ticket_max, req.body.d_ticket_price, currentDate.toISOString(), recordId];
 
     global.db.get(sqlquery, updatedRecord, 
         function (err, result) {

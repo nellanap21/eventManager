@@ -12,6 +12,7 @@
         <form action="/organizer/add-event" method="get">
             <button type="submit">Create New Event</button>
         </form>
+        <h2>Published Events</h2>
         <table>
             <thead>
                 <th>Title</th>
@@ -20,7 +21,7 @@
                 <th>Published</th>
                 <th>Tickets</th>
                 <th>Discount Tickets</th>
-                <th>Manage</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 <% publishedEvents.forEach(function(row) { %>
@@ -31,6 +32,41 @@
                     <td><%= row.pub_date %></td>
                     <td><%= row.ticket_max %></td>
                     <td><%= row.d_ticket_max %></td>
+                    <td>
+                        <form action="/organizer/delete-event/<%= row.event_id %>" method="get">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <h2>Draft Events</h2>
+        <table>
+            <thead>
+                <th>Title</th>
+                <th>Event Date</th>
+                <th>Created</th>
+                <th>Published</th>
+                <th>Tickets</th>
+                <th>Discount Tickets</th>
+                <th>Publish</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                <% draftEvents.forEach(function(row) { %>
+                <tr>
+                    <td><a href="/organizer/edit-event/<%= row.event_id %>"><%= row.event_title %></a></td>
+                    <td><%= row.event_date %></td>
+                    <td><%= row.create_date %></td>
+                    <td><%= row.pub_date %></td>
+                    <td><%= row.ticket_max %></td>
+                    <td><%= row.d_ticket_max %></td>
+                    <td>
+                        <form action="/organizer/publish-event/<%= row.event_id%>" method="get">
+                            <button type="submit">Publish</button>
+                        </form>
+                    </td>
                     <td>
                         <form action="/organizer/delete-event/<%= row.event_id %>" method="get">
                             <button type="submit">Delete</button>

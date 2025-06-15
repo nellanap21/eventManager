@@ -15,7 +15,7 @@
         <p>Discount Tickets Available: <%= data.d_ticket_max %></p>
         <p>Discount Ticket Price: <%= data.d_ticket_price %></p>
         <h2>Book Tickets</h2>
-        <form method="POST" action="/attendee/book-event/<%= data.event_id %>/<%= data.ticket_max %>/<%= data.d_ticket_max %>">
+        <form method="POST" action="/attendee/book-event/<%= data.event_id %>">
             Attendee Name: <input id="attendee_name" type="text" name="attendee_name" />
             Attendee Email: <input id="attendee_email" type="text" name="attendee_email" />
             <fieldset>

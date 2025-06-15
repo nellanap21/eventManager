@@ -21,6 +21,7 @@
                 <th>Published</th>
                 <th>Tickets</th>
                 <th>Discount Tickets</th>
+                <th>Share</th>
                 <th>Delete</th>
             </thead>
             <tbody>
@@ -32,6 +33,7 @@
                     <td><%= row.pub_date %></td>
                     <td><%= row.ticket_max %></td>
                     <td><%= row.d_ticket_max %></td>
+                    <td><button type="submit" onclick="copyLink('<%= row.event_id %>')">Link</button></td>
                     <td>
                         <form action="/organizer/delete-event/<%= row.event_id %>" method="get">
                             <button type="submit">Delete</button>

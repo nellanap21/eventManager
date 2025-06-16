@@ -50,6 +50,10 @@ global.db = new sqlite3.Database('./database.db',function(err){
     }
 });
 
+app.get('/login', function (req, res) {
+    res.render("login.ejs");
+});
+
 app.post('/login', function (req, res) {
     // naively stored password according to instructions
     const password = "pass";

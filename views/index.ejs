@@ -5,9 +5,13 @@
     </head>
     <body>
         <h1>This is the home page</h1>
-        <p>Are you an organizer or attendee?</p>
-        <a href="/organizer">Organizer Home Page</a>
-        <br>
+        <h2>Click this link to access Attendee Home Page</h2>
         <a href="/attendee">Attendee Home Page</a>
+        <h2>Login to access Organizer Home Page</h2>
+        <form action="/login" method="post">
+            Username: <input id="user" type="text" name="user" />
+            Password: <input id="pass" type="text" name="pass" />
+            <input type="submit" value="Login">
+        </form>
     </body>
 </html>

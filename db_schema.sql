@@ -4,20 +4,7 @@ PRAGMA foreign_keys=ON;
 
 BEGIN TRANSACTION;
 
--- Create your tables with SQL commands here (watch out for slight syntactical differences with SQLite vs MySQL)
-
-CREATE TABLE IF NOT EXISTS users (
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_name TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS email_accounts (
-    email_account_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email_address TEXT NOT NULL,
-    user_id  INT, --the user that the email account belongs to
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
-
+-- Create tables
 
 CREATE TABLE IF NOT EXISTS events (
     event_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,7 +39,7 @@ CREATE TABLE IF NOT EXISTS bookings (
     FOREIGN KEY (attendee_id) REFERENCES attendees(attendee_id)
 );
 
--- Insert default data (if necessary here)
+-- Insert default data 
 
 -- Set up 2 events
 INSERT INTO events ('event_title', 'event_descrip', 'event_date', 'create_date', 'event_state', 'pub_date', 'ticket_max', 'ticket_price', 'ticket_sold', 'd_ticket_max', 'd_ticket_price', 'd_ticket_sold', 'mod_date')
@@ -78,15 +65,6 @@ VALUES ('general', 0, (SELECT event_id FROM events WHERE event_id = 2), (SELECT 
 INSERT INTO bookings ('ticket_type', 'ticket_quantity', 'event_id', 'attendee_id')
 VALUES ('discount', 2, (SELECT event_id FROM events WHERE event_id = 1), (SELECT attendee_id FROM attendees WHERE attendee_email = 'kevin@gmail.com'));
 
--- Set up three users
-INSERT INTO users ('user_name') VALUES ('Simon Star');
-INSERT INTO users ('user_name') VALUES ('Dianne Dean');
-INSERT INTO users ('user_name') VALUES ('Harry Hilbert');
-
--- Give Simon two email addresses and Diane one, but Harry has none
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@gmail.com', 1); 
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@hotmail.com', 1); 
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('dianne@yahoo.co.uk', 2); 
 
 COMMIT;
 

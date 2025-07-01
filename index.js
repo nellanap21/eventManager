@@ -114,9 +114,9 @@ app.use('/attendee', attendeeRoutes);
 const usersRoutes = require('./routes/users');
 app.use('/users', usersRoutes);
 
-// add all the route handlers in emailRoutes to the app under the path /emails
-const emailRoutes = require('./routes/emails');
-app.use('/emails', emailRoutes);
+app.use(function (err, req, res, next) {    
+    res.status(500).send("Something went wrong: " + err.message);
+});
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {

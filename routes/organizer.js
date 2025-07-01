@@ -2,10 +2,14 @@
 const express = require("express");
 const router = express.Router();
 
+// required for date formatting
+const { format, parseISO } = require("date-fns"); 
 
-const { format, parseISO } = require("date-fns"); // node cannot mix import and require in same file
-
-// handle the organizer route
+/**
+ * @purpose display organizer dashboard 
+ * @input   none
+ * @output  render 'organizer.ejs' with site name, site description, and events
+ */
 router.get("/", (req, res) => {
 
     let data = {
@@ -37,6 +41,11 @@ router.get("/", (req, res) => {
     );
 });
 
+/**
+ * @purpose display site settings page  
+ * @input   none
+ * @output  render 'site-settings.ejs' with site name and site description
+ */
 router.get("/site-settings", (req, res) => {
     const data = {
         siteName: req.app.locals.siteName,
@@ -45,13 +54,23 @@ router.get("/site-settings", (req, res) => {
     res.render("site-settings.ejs", data);
 });
 
+/**
+ * @purpose update the site name and description
+ * @input   req.body.siteName - new site name 
+ *          req.body.siteDescription - new site description 
+ * @output  updates `req.app.locals` with new values
+ */
 router.post("/site-settings", (req, res) => {
     req.app.locals.siteName = req.body.siteName;
     req.app.locals.siteDescription = req.body.siteDescription;
     res.redirect('/organizer');
 });
 
-
+/**
+ * @purpose display add event page  
+ * @input   none
+ * @output  saves new event to database and renders 'edit-event.ejs' with event
+ */
 router.get("/add-event", (req, res) => {
 
     const currentDate = new Date();
@@ -69,6 +88,12 @@ router.get("/add-event", (req, res) => {
     });
 });
 
+// TODO: consider changing to POST or DELETE route to avoid accidental link clicks
+/**
+ * @purpose delete a specific event from the database
+ * @input   req.params.id - the ID of the event 
+ * @output  deletes the event and redirects to the /organizer 
+ */
 router.get("/delete-event/:id", (req, res) => {
     const recordId = req.params.id;
     let sqlquery = "DELETE FROM events WHERE event_id = ?";
@@ -83,6 +108,11 @@ router.get("/delete-event/:id", (req, res) => {
     );
 });
 
+/**
+ * @purpose publishes an event
+ * @input   req.params.id - the ID of the event
+ * @output  updates the event in database and redirects to /organizer
+ */
 router.get("/publish-event/:id", (req, res) => {
     const recordId = req.params.id;
 
@@ -103,6 +133,11 @@ router.get("/publish-event/:id", (req, res) => {
     );
 });
 
+/**
+ * @purpose displays the edit-event page
+ * @input   req.params.id - the ID of the event
+ * @output  renders 'edit-event.ejs' with event data
+ */
 router.get("/edit-event/:id", (req, res) => {
     const recordId = req.params.id;
     let sqlquery = "SELECT * FROM events WHERE event_id = ?";
@@ -118,6 +153,18 @@ router.get("/edit-event/:id", (req, res) => {
     })
 });
 
+/**
+ * @purpose updates an event in database
+ * @input   req.params.id - the ID of the event
+ *          req.body.event_title - updated title
+ *          req.body.event_descrip - updated description 
+ *          req.body.event_date - updated date 
+ *          req.body.ticket_max - updated ticket limit 
+ *          req.body.ticket_price - updated regular ticket price
+ *          req.body.d_ticket_max - updated discounted ticket limit
+ *          req.body.d_ticket_price - updated discounted ticket price 
+ * @output  updates the event and renders 'edit-event.ejs'
+ */
 router.post("/edit-event/:id", (req, res) => {
     const recordId = req.params.id;
     const currentDate = new Date();

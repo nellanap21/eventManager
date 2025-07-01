@@ -1,5 +1,4 @@
 /**
-* index.js
 * This is your main app entry point
 */
 
@@ -15,12 +14,16 @@ app.use(express.static(__dirname + '/public')); // set location of static files
 
 // Set up express session
 app.use(session({
-    secret: 'keyboard cat',
+    secret: 'keyboard cat', 
     resave: false,
     saveUninitialized: true
 }))
 
-// middleware to test if authenticated
+/**
+ * @purpose   middleware to restrict access to authenticated users only
+ * @input     req.session.user - checked to determine if a user is logged in
+ * @output    if authenticated: calls `next()` to proceed to the next middleware/route
+ */
 function isAuthenticated (req, res, next) {
     console.log("isAuthenticated: " + req.session.user)
 
@@ -32,12 +35,12 @@ function isAuthenticated (req, res, next) {
 }
 
 // Set up local variables for the application
-// Per requirements, application is designed for one individual or organisation
+// Per requirements, application is designed for one organisation
 app.locals.siteName = 'Fractals of Sound';
 app.locals.siteDescription = `A collective of musicians creating sound 
 bath experiences rooted in world music.`;
 
-// Set up SQLite
+// set up SQLite
 // Items in the global namespace are accessible throught out the node application
 const sqlite3 = require('sqlite3').verbose();
 global.db = new sqlite3.Database('./database.db',function(err){
@@ -50,75 +53,24 @@ global.db = new sqlite3.Database('./database.db',function(err){
     }
 });
 
-app.get('/login', function (req, res) {
-    res.render("login.ejs");
-});
-
-app.post('/login', function (req, res) {
-    // naively stored password according to instructions
-    const password = "pass";
-
-    // login logic to validate req.body.password
-    if (req.body.pass == password) {
-        // regenerate the session, which is good practice to guard against
-        // forms of session fixation
-        req.session.regenerate(function(err) {
-            if (err) next(err)
-            // store user information in session
-            req.session.user = req.body.user;
-            console.log(req.body.user);
-            // save the session before redirection to ensure page
-            // load does not happen before session is saved
-            req.session.save(function (err) {
-                if (err) return next(err)
-                res.redirect('/organizer');
-            })
-        })
-    } else {
-        res.send("Your username or password is incorrect");
-    }
-
-})
-
-app.get('/logout', function (req, res, next) {
-    // logout logic
-
-    // clear the user from the session object adn save.
-    // this will ensure that re-using the old session id
-    // does not have a logged in user
-    req.session.user = null;
-    req.session.save(function (err) {
-        if (err) next (err)
-        
-        // regenerate the session, which is good practice to help
-        // guard against forms of session fixation
-        req.session.regenerate(function (err) {
-            if (err) next(err)
-            res.redirect('/');
-        })
-    })
-})
-
-// Add all the route handlers in mainRoutes to the app under the path /
+// add route handlers in mainRoutes to the app under path /
 const mainRoutes = require("./routes/main");
 app.use('/', mainRoutes);
 
-// Add all the route handlers in organizerRoutes to the app under the path /organizer
+// add route handlers in organizerRoutes to the app under path /organizer
 const organizerRoutes = require("./routes/organizer");
 app.use('/organizer', isAuthenticated, organizerRoutes);
 
+// add route handlers in attendeeRoutes to the app under path /attendee
 const attendeeRoutes = require("./routes/attendee");
 app.use('/attendee', attendeeRoutes);
 
-// Add all the route handlers in usersRoutes to the app under the path /users
-const usersRoutes = require('./routes/users');
-app.use('/users', usersRoutes);
-
+// error handler
 app.use(function (err, req, res, next) {    
     res.status(500).send("Something went wrong: " + err.message);
 });
 
-// Make the web application listen for HTTP requests
+// make the web application listen for HTTP requests
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })

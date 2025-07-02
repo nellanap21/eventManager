@@ -1,7 +1,3 @@
-/**
-* This is your main app entry point
-*/
-
 // Set up express, bodyparser and EJS
 const express = require('express');
 const session = require('express-session');
@@ -35,13 +31,11 @@ function isAuthenticated (req, res, next) {
 }
 
 // Set up local variables for the application
-// Per requirements, application is designed for one organisation
 app.locals.siteName = 'Fractals of Sound';
 app.locals.siteDescription = `A collective of musicians creating sound 
 bath experiences rooted in world music.`;
 
 // set up SQLite
-// Items in the global namespace are accessible throught out the node application
 const sqlite3 = require('sqlite3').verbose();
 global.db = new sqlite3.Database('./database.db',function(err){
     if(err){
@@ -65,7 +59,7 @@ app.use('/organizer', isAuthenticated, organizerRoutes);
 const attendeeRoutes = require("./routes/attendee");
 app.use('/attendee', attendeeRoutes);
 
-// error handler
+// add error handler
 app.use(function (err, req, res, next) {    
     res.status(500).send("Something went wrong: " + err.message);
 });

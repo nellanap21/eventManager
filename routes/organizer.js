@@ -59,6 +59,7 @@ router.get("/site-settings", (req, res) => {
  * @input   req.body.siteName - new site name 
  *          req.body.siteDescription - new site description 
  * @output  updates `req.app.locals` with new values
+ *          and redirects to /organizer
  */
 router.post("/site-settings", (req, res) => {
     req.app.locals.siteName = req.body.siteName;
@@ -69,7 +70,8 @@ router.post("/site-settings", (req, res) => {
 /**
  * @purpose display add event page  
  * @input   none
- * @output  saves new event to database and renders 'edit-event.ejs' with event
+ * @output  saves new event to database and renders 
+ *          'edit-event.ejs' with event
  */
 router.get("/add-event", (req, res) => {
 
@@ -147,7 +149,6 @@ router.get("/edit-event/:id", (req, res) => {
         } else if (result == 0) {
             res.send("No event found");
         } else {
-            // res.json({ data: result });
             res.render("edit-event.ejs", {data: result});
         }
     })
@@ -169,8 +170,23 @@ router.post("/edit-event/:id", (req, res) => {
     const recordId = req.params.id;
     const currentDate = new Date();
 
-    let sqlquery = "UPDATE events SET event_title = ?, event_descrip = ?, event_date = ?, ticket_max = ?, ticket_price = ?, d_ticket_max = ?, d_ticket_price = ?, mod_date = ? WHERE event_id = ? RETURNING *";
-    let updatedRecord = [req.body.event_title, req.body.event_descrip, req.body.event_date, req.body.ticket_max, req.body.ticket_price, req.body.d_ticket_max, req.body.d_ticket_price, currentDate.toISOString(), recordId];
+    let sqlquery = `UPDATE events 
+                    SET event_title = ?, event_descrip = ?, 
+                    event_date = ?, ticket_max = ?, ticket_price = ?, 
+                    d_ticket_max = ?, d_ticket_price = ?, 
+                    mod_date = ? 
+                    WHERE event_id = ? RETURNING *`;
+    let updatedRecord = [
+                    req.body.event_title, 
+                    req.body.event_descrip, 
+                    req.body.event_date, 
+                    req.body.ticket_max, 
+                    req.body.ticket_price, 
+                    req.body.d_ticket_max, 
+                    req.body.d_ticket_price, 
+                    currentDate.toISOString(), 
+                    recordId
+                ];
 
     global.db.get(sqlquery, updatedRecord, 
         function (err, result) {
@@ -178,7 +194,6 @@ router.post("/edit-event/:id", (req, res) => {
                 console.log(err);
             } else {
                 res.render("edit-event.ejs", {data: result});
-                // res.redirect(`/organizer/edit-event/${this.lastID}`);
             }
         }
      )

@@ -21,10 +21,11 @@ router.get('/login', (req, res) => {
 });
 
 /**
- * @purpose  handle user login and establish a session
- * @input    user - the username 
- *           pass - the password 
- * @output   regenerates session, sets user, redirects to /organizer
+ * @purpose handle user login and establish a session
+ * @input   user - the username 
+ *          pass - the password 
+ * @output  regenerates session, sets user, and 
+ *          redirects to /organizer
  */
 router.post('/login', (req, res, next) => {
     const password = 'pass';
@@ -46,10 +47,10 @@ router.post('/login', (req, res, next) => {
 });
 
 /**
- * @purpose  log user out by clearing session data 
- * @input    none
- * @output   clears `req.session.user`, regenerates session 
- *           redirects the user to the home page (`/`)
+ * @purpose log user out by clearing session data 
+ * @input   none
+ * @output  clears `req.session.user`, regenerates session 
+ *          redirects the user to /
  */
 router.get('/logout', (req, res, next) => {
     req.session.user = null;

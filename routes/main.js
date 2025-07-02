@@ -8,7 +8,13 @@ const router = express.Router();
  * @output      renders the index.ejs view as the response
  */
 router.get("/", (req, res) => {
-    res.render("index.ejs");
+
+    let data = {
+        siteName: req.app.locals.siteName,
+        siteDescription: req.app.locals.siteDescription
+    };
+
+    res.render("index.ejs", data);
 });
 
 /**

@@ -1,1 +1,78 @@
 /* Define styles */
+
+body {
+    background: white;
+}
+
+h1 {
+    font-family: Helvetica, Gotham, sans-serif;
+    font-weight: bold;
+    font-size: 4em;
+    color: #fd7e14;
+}
+
+h2 {
+    font-family: Helvetica, Gotham, sans-serif;
+    font-weight: normal;
+    font-size: 3em;
+    color: #dc3545;
+}
+
+h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 2em;
+    color: purple;
+}
+
+p {
+    font-family: Verdana, Tahoma, sans-serif;
+    font-weight: normal;
+    font-size: 1em;
+    color: #2c1a4d;
+}
+
+a {
+    font-family: Verdana, Tahoma, sans-serif;
+    font-weight: normal;
+    font-size: 1em;
+    color: #055160;
+}
+
+
+
+/*The following change the styles for the tables. */
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+/*Adds a border line below the header in the table. */
+th {
+    font-family: Verdana, Tahoma, sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 1em;
+    color: #59359a;
+    border-bottom: 1px solid #ddd;
+
+
+}
+
+/*Adds a border line below each row in the table. */
+td {
+    font-family: Verdana, Tahoma, sans-serif;
+    font-weight: normal;
+    font-size: 1em;
+    color: #2c1a4d; 
+    height: 2em;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+
+}
+
+/*Adds a mouse hover effect over a specific row. */
+tr:hover {
+    background-color: coral;
+
+}

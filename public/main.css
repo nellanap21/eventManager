@@ -8,6 +8,7 @@ h1 {
     font-family: Helvetica, Gotham, sans-serif;
     font-weight: bold;
     font-size: 4em;
+    text-align: center;
     color: #fd7e14;
 }
 
@@ -75,4 +76,23 @@ td {
 tr:hover {
     background-color: coral;
 
+}
+
+
+/*----Index Page CSS-------------------------------------------*/
+
+.heroSection{
+    padding: 4em;
+}
+
+.subHeading{
+    text-align: center;
+}
+
+.userTypeCard{
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 4em;
+    text-align: center;
 }

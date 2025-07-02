@@ -9,12 +9,27 @@
         <title>Home Page</title>
     </head>
     <body>
-        <h1><%= siteName %></h1>
-        <p><%= siteDescription %></p>
-        <h2>I'm an attendee</h2>
-        <a href="/attendee">Attendee Home Page</a>
-        <h2>I'm the organizer</h2>
-        <a href="/login">Organizer Home Page</a>
+    <div class="container bg-light">
+        <div class="heroSection">
+            <div class="row">
+                <h1><%= siteName %></h1>
+            </div>
+            <div class="row subHeading">
+                <p><%= siteDescription %></p>
+            </div>
+        </div>
 
+        <div class="row">
+            <!--two columns for medium screens and larger-->
+            <div class="col-md-6 userTypeCard">
+                <h2>I'm an attendee</h2>
+                <a href="/attendee">Attendee Home Page</a>
+            </div>
+            <div class="col-md-6 userTypeCard">
+                <h2>I'm an organizer</h2>
+                <a href="/login">Organizer Home Page</a>
+            </div>
+        </div>
+    </div>
     </body>
 </html>

@@ -9,11 +9,26 @@
         <title>This is the login page</title>
     </head>
     <body>
-        <h1>This is the login page</h1>
-        <form action="/login" method="post">
-            Username: <input id="user" type="text" name="user" />
-            Password: <input id="pass" type="text" name="pass" />
-            <input type="submit" value="Login">
-        </form>
+        <div class="container bg-light">
+            <div class="heroSection">
+                <div class="row">
+                    <h1>Login Page</h1>
+                </div>
+            </div>
+            <div class="row col-md-6 offset-md-3 pb-5">
+                <form action="/login" method="post">
+                    <div class="mb-3">
+                        <label for="user" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="user" name="user">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass" class="form-label">Password is hardcoded as 'eventManager123'</label>
+                        <input type="password" class="form-control" id="pass" name="pass">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+
+        </div>
     </body>
 </html>

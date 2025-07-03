@@ -34,7 +34,7 @@ router.get('/login', (req, res) => {
  *          redirects to /organizer
  */
 router.post('/login', (req, res, next) => {
-    const password = 'pass';
+    const password = 'eventManager123';
 
     if (req.body.pass === password) {
         req.session.regenerate(function (err) {

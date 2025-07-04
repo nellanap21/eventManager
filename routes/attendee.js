@@ -2,6 +2,9 @@
 const express = require("express");
 const router = express.Router();
 
+// required for date formatting
+const { format } = require("date-fns"); 
+
 /**
  * @purpose display published events in chronological order
  * @input   none 
@@ -22,6 +25,9 @@ router.get("/", (req, res) => {
             if (err) {
                 console.log(err);
             } else {
+                for (let i = 0; i < rows.length; i++) {
+                  rows[i].event_date = format(rows[i].event_date, 'LLL d @ h:mm aaa');
+                }
                 data.publishedEvents = rows;
                 res.render("attendee.ejs", data);
             }

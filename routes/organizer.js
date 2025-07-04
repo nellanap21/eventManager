@@ -30,7 +30,9 @@ router.get("/", (req, res) => {
                     // format dates
                     rows[i].event_date = format(rows[i].event_date, 'LLL d @ h:mm aaa');
                     rows[i].create_date = format(rows[i].create_date, 'LLL d');
-                    rows[i].pub_date = format(rows[i].pub_date, 'LLL d');
+                    if (rows[i].pub_date != null) {
+                        rows[i].pub_date = format(rows[i].pub_date, 'LLL d');
+                    }
 
                     // add to draft or published events array
                     if (rows[i].event_state === 0) {
@@ -195,7 +197,7 @@ router.post("/edit-event/:id", (req, res) => {
                     currentDate.toISOString(), 
                     recordId
                 ];
-
+    
     global.db.get(sqlquery, updatedRecord, 
         function (err, result) {
             if (err) {

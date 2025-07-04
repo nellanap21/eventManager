@@ -1,9 +1,8 @@
 // create a new router
 const express = require("express");
 const router = express.Router();
-
-// required for date formatting
 const { format } = require("date-fns"); 
+const { dbAll, dbGet, dbRun } = require("../utils/db");
 
 /**
  * @purpose display published events in chronological order
@@ -56,61 +55,7 @@ router.get("/book-event/:id", (req, res) => {
     });
 });
 
-/**
- * @purpose enables async/await usage with SQLite db.all
- * @input   sql - the SQL query string 
- *          params - an array of parameters
- * @output  returns a promise that resolves with rows from DB
- */
-function dbAll(sql, params) {
-  return new Promise((resolve, reject) => {
-    db.all(sql, params, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-    });
-  });
-}
 
-/**
- * @purpose enables async/await usage with SQLite db.get
- * @input   sql - the SQL query string 
- *          params - an array of parameters
- * @output  returns a promise that resolves with a single row
- */
-function dbGet(sql, params) {
-  return new Promise((resolve, reject) => {
-    db.get(sql, params, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-    });
-  });
-}
-
-/**
- * @purpose enables async/await usage with SQLite db.run
- * @input   sql - the SQL query string 
- *          params - an array of parameters
- * @output  returns a promise that resolves with 
- *          ID of the row and the row that was inserted
- */
-function dbRun(sql, params) {
-  return new Promise((resolve, reject) => {
-    db.run(sql, params, 
-        function (err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ lastID: this.lastID, changes: this.changes });
-      }
-    });
-  });
-}
 
 /**
  * @purpose retrieve event details from the database

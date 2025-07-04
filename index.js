@@ -24,7 +24,6 @@ app.use(session({
  * @output    if authenticated: calls `next()` to proceed to the next middleware/route
  */
 function isAuthenticated (req, res, next) {
-    console.log("isAuthenticated: " + req.session.user)
 
     if (req.session.user !== undefined) {
         next()

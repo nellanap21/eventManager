@@ -16,6 +16,8 @@ h2 {
     font-family: Helvetica, Gotham, sans-serif;
     font-weight: normal;
     font-size: 3em;
+    text-align: left;
+
     color: #dc3545;
 }
 
@@ -44,9 +46,12 @@ a {
 
 /*The following change the styles for the tables. */
 table {
-    width: 100%;
-    border-collapse: collapse;
-
+    display: block; /* Allows overflow-x to be applied */
+    width: 100%; /* Ensures table attempts to fill container */
+    overflow-x: auto; /* Adds horizontal scrollbar when needed */
+    word-break: normal; /* Prevents text from breaking within cells */
+    border-collapse: separate;
+    border-spacing: 1em;
 }
 /*Adds a border line below the header in the table. */
 th {
@@ -68,13 +73,18 @@ td {
     color: #2c1a4d; 
     height: 2em;
     text-align: left;
-    border-bottom: 1px solid #ddd;
-
+    /* border-bottom: 1px solid #ddd; */
 }
 
+thead td:hover {
+  /* Optional: If you want specific hover styles for thead, define them here */
+  background-color: initial; /* Example: prevents background color change */
+}
+
+
 /*Adds a mouse hover effect over a specific row. */
-tr:hover {
-    background-color: coral;
+td:hover {
+    background-color: #e6e7e8;
 
 }
 
@@ -95,4 +105,32 @@ tr:hover {
     padding-right: 1em;
     padding-bottom: 4em;
     text-align: center;
+}
+
+
+/*----Organizer Page CSS-------------------------------------------*/
+
+.siteInfo{
+    padding-top: 0em;
+    padding-bottom: 2em; 
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+.siteSettingsAction{
+    padding-bottom: 1em;
+}
+
+.publishedEvents{
+    padding-top: 2em;
+    padding-bottom: 2em; 
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+.draftEvents{
+    padding-top: 2em;
+    padding-bottom: 2em; 
+    padding-left: 4em;
+    padding-right: 4em;
 }

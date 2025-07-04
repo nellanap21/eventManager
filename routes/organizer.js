@@ -28,7 +28,7 @@ router.get("/", (req, res) => {
                 let draftEvents = [];
                 for (let i = 0; i < rows.length; i++) {
                     // format dates
-                    rows[i].event_date = format(rows[i].event_date, 'LLL d @ h:m aaa');
+                    rows[i].event_date = format(rows[i].event_date, 'LLL d @ h:mm aaa');
                     rows[i].create_date = format(rows[i].create_date, 'LLL d');
                     rows[i].pub_date = format(rows[i].pub_date, 'LLL d');
 
@@ -155,6 +155,8 @@ router.get("/edit-event/:id", (req, res) => {
         } else if (result == 0) {
             res.send("No event found");
         } else {
+            result.create_date = format(result.create_date, 'LLL d, yyyy');
+            result.mod_date = format(result.mod_date, 'LLL d, yyyy @ h:mm:ss aaa');
             res.render("edit-event.ejs", {data: result});
         }
     })
@@ -199,6 +201,8 @@ router.post("/edit-event/:id", (req, res) => {
             if (err) {
                 console.log(err);
             } else {
+                result.create_date = format(result.create_date, 'LLL d, yyyy');
+                result.mod_date = format(result.mod_date, 'LLL d, yyyy @ h:mm:ss aaa');
                 res.render("edit-event.ejs", {data: result});
             }
         }

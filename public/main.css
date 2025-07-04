@@ -147,3 +147,18 @@ td:hover {
     padding-right: 0em;
 }
 
+/*----Event Settings Page CSS-------------------------------------------*/
+
+.eventInfo{
+    padding-top: 2em;
+    padding-bottom: 2em; 
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+.eventForm{
+    padding-top: 2em;
+    padding-bottom: 2em; 
+    padding-left: 4em;
+    padding-right: 4em;
+}

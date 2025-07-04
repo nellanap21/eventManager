@@ -50,6 +50,7 @@ router.get("/book-event/:id", (req, res) => {
         } else if (result == 0) {
             res.send("No event found");
         } else {
+            result.event_date = format(result.event_date, 'LLL d @ h:mm aaa');
             res.render("book-event.ejs", {data: result});
         }
     });

@@ -9,12 +9,33 @@
         <title>This is the site settings page</title>
     </head>
     <body>
-        <h1>Site Settings</h1>
-        <a href="/organizer"><button>Back to Home</button></a>
-        <form method="POST" action="/organizer/site-settings">
-            Event Manager Name: <input id="siteName" type="text" name="siteName" value="<%= siteName %>" required/>
-            Event Manager Description: <input id="siteDescription" type="text" name="siteDescription" value="<%= siteDescription %>" required/>
-            <input type="submit" value="Submit" />
-        </form>
+        <div class="container bg-light">
+            <div class="heroSection">
+                <div class="row">
+                    <h1>Site Settings</h1>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-2">
+                        <a href="/organizer"><button class="btn btn-secondary">Back to Home</button></a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-6 offset-md-3 siteSettingsForm">
+                <form method="POST" action="/organizer/site-settings">
+                    <div class="mb-3">
+                        <label for="siteName" class="form-label">Event Manager Name</label>
+                        <input type="text" class="form-control" id="siteName" name="siteName" value="<%= siteName %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="siteDescription" class="form-label">Event Manager Description</label>
+                        <textarea class="form-control" id="siteDescription" rows="3" name="siteDescription" required><%= siteDescription %></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
     </body>
 </html>

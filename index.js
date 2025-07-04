@@ -34,8 +34,7 @@ function isAuthenticated (req, res, next) {
 
 // Set up local variables for the application
 app.locals.siteName = 'Fractals of Sound';
-app.locals.siteDescription = `A collective of musicians creating sound 
-bath experiences rooted in world music.`;
+app.locals.siteDescription = `A collective of musicians creating sound bath experiences rooted in world music.`;
 
 // set up SQLite
 const sqlite3 = require('sqlite3').verbose();

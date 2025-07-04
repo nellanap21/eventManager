@@ -107,6 +107,9 @@ td:hover {
     text-align: center;
 }
 
+.userTypeCard h2 {
+    text-align: center;
+}
 
 /*----Organizer Page CSS-------------------------------------------*/
 
@@ -134,3 +137,13 @@ td:hover {
     padding-left: 4em;
     padding-right: 4em;
 }
+
+/*----Site Settings Page CSS-------------------------------------------*/
+
+.siteSettingsForm{
+    padding-top: 0em;
+    padding-bottom: 10em; 
+    padding-left: 0em;
+    padding-right: 0em;
+}
+

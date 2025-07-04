@@ -2,7 +2,6 @@
 const express = require("express");
 const router = express.Router();
 const { format } = require("date-fns"); 
-const { dbAll, dbGet, dbRun } = require("../utils/db");
 const { getEvent, checkTickets, createAttendee, createBooking } = require("../middleware/booking");
 
 /**

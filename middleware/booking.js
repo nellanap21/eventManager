@@ -96,7 +96,6 @@ async function createBooking (req, res, next) {
     try {
         result = await dbRun(sqlqueryBooking, newBooking);
         next();
-        // res.send("booking created")
     } catch (error) {
         console.log(error);
         next(error);

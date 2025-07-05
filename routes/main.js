@@ -36,9 +36,7 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
     const password = 'eventManager123';
 
-    // temp make true for dev purposes
-    // if (req.body.pass === password) {
-    if (true) {
+    if (req.body.pass === password) {
         req.session.regenerate(function (err) {
             if (err) return next(err);
 

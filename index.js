@@ -13,7 +13,7 @@ app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstra
 
 // Set up express session
 app.use(session({
-    secret: 'keyboard cat', 
+    secret: 'keyboard dog', 
     resave: false,
     saveUninitialized: true
 }))

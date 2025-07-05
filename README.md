@@ -64,7 +64,7 @@ The following are some scripts for deleting the database.
 ```npm run clean-db-win``` to delete the database on Windows before rebuilding it for a fresh start
 
 #### License ####
-This project is licensed under the [MIT License]
+This project is licensed under the MIT License
 
 Copyright (c) 2025 Allen Pan
 

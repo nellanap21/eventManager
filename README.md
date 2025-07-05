@@ -13,7 +13,7 @@ This is an event manager web application built with Node.js, Express, EJS, and S
     - we recommend using ^4.18.2
 * **SQLite3** 
     - query your data tier from within your express app
-    - follow the instructions at https://www.tutorialspoint.com/sqlite/sqlite_installation.htm
+    - follow the instructions at https://www.npmjs.com/package/sqlite3
     - we recommend using ^5.1.2
     - Note that the latest versions of the Mac OS and Linux come with SQLite pre-installed
 * **EJS**
@@ -85,24 +85,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-#### Preparing for submission ####
-
-Make a copy of your project folder.
-In your copy, delete the following files and folders:
-* node_modules
-* .git (the hidden folder with your git repository)
-* database.db (your database)
-
-Make sure that your ``package.json`` file includes all of the dependencies for your project. NB. you need to use the ```--save``` tag each time you use npm to install a dependency
-
-Edit this README.md to explain any specific instructions for setting up or using your application that you want to bring to our attention:
-
-* remove the existing contents that we have provided
-* include any settings that should be adjusted in configuration files
-* include a list of the additional libraries you are using
-* anything else we need to know in order to successfully run your app
-
 
 NB. we will ONLY run ```npm install```, ```npm run build-db```, and ```npm run start``` . We will NOT install additional packages to run your code and will NOT run additional build scripts. Be careful with any additional node dependencies that you use.
 

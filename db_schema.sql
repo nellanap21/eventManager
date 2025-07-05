@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS events (
     event_id INTEGER PRIMARY KEY AUTOINCREMENT,
     event_title TEXT DEFAULT 'Draft Title',
     event_descrip TEXT DEFAULT 'Draft Description',
-    event_date TEXT DEFAULT CURRENT_TIMESTAMP,
+    event_date TEXT,
     create_date TEXT,
     event_state INT NOT NULL,
     pub_date TEXT,

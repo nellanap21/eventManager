@@ -63,6 +63,15 @@ The following are some scripts for deleting the database.
 ```npm run clean-db``` to delete the database on Mac or Linux before rebuilding it for a fresh start
 ```npm run clean-db-win``` to delete the database on Windows before rebuilding it for a fresh start
 
+
+#### Extension Documentation ####
+The node module express-session is used to keep a user log in session. The function isAuthenticated is middleware to test if a user is authenticated.  
+
+At the POST /login path, there is logic that checks that the user's password matches a naively stored password 'eventManager123'. Then we regenerate the session, which is best practice to prevent session fixation attacks. The user's name is stored in the session (the existence of this value is used to check user is authenticated).
+
+At the GET /logout path, the user value is cleared, and the session is saved. This ensures that an attacker cannot use an old session ID. For further protection, we regenerate teh session to prevent session fixation attacks. 
+
+
 #### License ####
 This project is licensed under the MIT License
 

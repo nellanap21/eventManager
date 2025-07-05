@@ -19,6 +19,11 @@ router.get("/", (req, res) => {
 
     let sqlquery = "SELECT * FROM events";
 
+    /**
+     * @purpose retrieve all events from the database
+     * @input   none
+     * @output  returns an array of draftEvents and publishedEvents
+     */
     global.db.all(sqlquery, 
         function (err, rows) {
             if (err) {
@@ -89,6 +94,11 @@ router.get("/add-event", (req, res) => {
     let sqlquery = "INSERT INTO events (create_date, event_state, mod_date) VALUES (?, ?, ?)";
     let newRecord = [currentDateString, 0, currentDateString];
 
+    /**
+     * @purpose insert a new blank event into database
+     * @input   none from user
+     * @output  retrieves the newly inserted row's ID
+     */
     global.db.run(sqlquery, newRecord, function (err) {
         if (err) {
             next(err);

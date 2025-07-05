@@ -36,12 +36,19 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
     const password = 'eventManager123';
 
+    // validate that password is correct
     if (req.body.pass === password) {
+
+        // regenerate the session to protect
+        // against forms of session fixation
         req.session.regenerate(function (err) {
             if (err) return next(err);
 
+            // store user information in session
             req.session.user = req.body.user;
 
+            // save the session and then redirect 
+            // to organizer page
             req.session.save(function (err) {
                 if (err) return next(err);
                 res.redirect('/organizer');
@@ -59,12 +66,16 @@ router.post('/login', (req, res, next) => {
  *          redirects the user to /
  */
 router.get('/logout', (req, res, next) => {
+    // clear user from session object
+    // ensures that re-using an old session ID
+    // does not have a logged in user
     req.session.user = null;
 
     req.session.save(function (err) {
         if (err) return next(err);
 
-        // prevents session fixation where attacker tries to use old session
+        // prevents session fixation where attacker 
+        // tries to use old session
         req.session.regenerate(function (err) {
             if (err) return next(err);
             res.redirect('/');
